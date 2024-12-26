@@ -8,8 +8,8 @@ import { PriceAlertService } from './services/price-alert.service';
 import { PriceSchedulerService } from './services/price-scheduler.service';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Price]), // Only register Price entity here
-    ScheduleModule.forRoot(), // Add schedule module
+    TypeOrmModule.forFeature([Price]),
+    ScheduleModule.forRoot(),
   ],
   providers: [PricesService, PriceScheduler, PriceSchedulerService,PriceAlertService],
   exports: [PricesService],
