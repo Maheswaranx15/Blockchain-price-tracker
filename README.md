@@ -44,7 +44,7 @@
 
 ![Alt text](outputs/1.png?raw=true "Automatically save the Price of ethereum , polygon")
 
-2. Automatically send an email to “hyperhire_assignment@hyperhire.in” if the price of a chain increases by more than 3% compared to its price one hour ago
+2. Automatically send an email to your mail id if the price of a chain increases by more than 3% compared to its price one hour ago
 
 3. API - returning the prices of each hour (within 24hours)
 
@@ -52,6 +52,10 @@
 4. API  - setting alert for specific price.(parameters are chain, dollar, email)
 
 ![Alt text](outputs/3.png?raw=true "setting alert for specific price.(parameters are chain, dollar, email)")
+
+5. API - get swap rate (eth to btc)
+
+![Alt text](outputs/4.png?raw=true "get swap rate (eth to btc)")
 
 EXAMPLE
 1. User can set alert 1000 dollar for ethereum
@@ -62,7 +66,6 @@ EXAMPLE
     2. return values are
         1. how much btc can get
         2. total fee (eth, dollar)(fee percentage is 0.03)
-2. no user authentication required.
 
 ## Project setup
 
