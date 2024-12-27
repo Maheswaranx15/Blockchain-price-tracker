@@ -1,6 +1,7 @@
 import { Repository, DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Price } from '../entities/price.entity';
+import axios from 'axios';
 
 @Injectable()
 export class PriceRepository extends Repository<Price> {
@@ -49,4 +50,5 @@ export class PriceRepository extends Repository<Price> {
 
     return latestPrice?.latestPrice ?? 0;
   }
+
 }
