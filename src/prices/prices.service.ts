@@ -64,7 +64,7 @@ export class PricesService {
 
   @Cron('0 */5 * * * *') 
 async fetchAndStorePrice() {
-  const chains = ['ethereum', 'matic-network','bsv','bitcoin']; 
+  const chains = ['ethereum', 'matic-network','bitcoin-cash','bitcoin']; 
 
   try {
     // Fetch prices from an external API (example using Axios)
@@ -103,5 +103,71 @@ async fetchAndStorePrice() {
   async setPriceAlert(chain: string, price: number, email: string) {
     console.log(`Setting alert for chain: ${chain}, price: $${price}, email: ${email}`);
     await this.alertRepository.save({ chain, price, email });
+  }
+
+  async getSwapRateWithFee(ethAmount: number): Promise<any> {
+    const feePercentage = 0.03; // 3% fee
+
+    try {
+      // Fetch prices for Ethereum and Bitcoin from CoinGecko
+      const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd');
+      const ethToUsd = response.data.ethereum.usd;
+      const btcToUsd = response.data.bitcoin.usd;
+
+      // Calculate swap rate (ETH to BTC) using the prices in USD
+      const swapRate = ethToUsd / btcToUsd;
+
+      // Calculate how much BTC you can get for the given ETH amount
+      const btcAmount = ethAmount * swapRate;
+
+      // Calculate the fee in ETH and USD
+      const feeEth = ethAmount * feePercentage;
+      const feeUsd = feeEth * ethToUsd;
+
+      return {
+        btcAmount,
+        feeEth,
+        feeUsd,
+        ethToUsd,  // ETH to USD rate for conversion reference
+        btcToUsd,  // BTC to USD rate for conversion reference
+      };
+    } catch (error) {
+      console.error('Error fetching swap rate with fee:', error);
+      throw new Error('Unable to fetch swap rate with fee');
+    }
+  }
+
+  async getSwapRateBtcToEthWithFee(btcAmount: number): Promise<any> {
+    const feePercentage = 0.03; // 3% fee
+
+    try {
+      // Fetch prices for Bitcoin and Ethereum from CoinGecko
+      const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin&vs_currencies=usd');
+      const ethToUsd = response.data.ethereum.usd;
+      const btcToUsd = response.data.bitcoin.usd;
+
+      // Calculate swap rate (BTC to ETH) using the prices in USD
+      const swapRate = btcToUsd / ethToUsd;
+
+      // Calculate how much ETH you can get for the given BTC amount
+      const ethAmount = btcAmount * swapRate;
+
+      // Calculate the fee in BTC and ETH
+      const feeBtc = btcAmount * feePercentage;
+      const feeEth = feeBtc * swapRate;
+      const feeUsd = feeBtc * btcToUsd;
+
+      return {
+        ethAmount,
+        feeBtc,
+        feeEth,
+        feeUsd,
+        ethToUsd,  // ETH to USD rate for conversion reference
+        btcToUsd,  // BTC to USD rate for conversion reference
+      };
+    } catch (error) {
+      console.error('Error fetching swap rate with fee:', error);
+      throw new Error('Unable to fetch swap rate with fee');
+    }
   }
 }
