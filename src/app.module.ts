@@ -13,7 +13,7 @@ import { Alert } from './prices/entities/alert.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres', 
-      host: 'localhost', //docker : db //local na localhost
+      host: 'db', //docker : db //local na localhost
       port: 5432,
       username: 'postgres',
       password: 'postgres',

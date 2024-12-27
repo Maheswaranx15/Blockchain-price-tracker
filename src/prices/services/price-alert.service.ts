@@ -17,7 +17,7 @@ export class PriceAlertService {
   @Cron(CronExpression.EVERY_HOUR)
   async handleCron() {
     await this.checkAndAlertPrice('ethereum');
-    await this.checkAndAlertPrice('polygon');
+    await this.checkAndAlertPrice('matic-network');
   }
 
   // Function to check and send email if price increases by 3%

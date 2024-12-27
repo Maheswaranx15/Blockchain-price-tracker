@@ -4,14 +4,18 @@ services:
   app:
     build: .
     ports:
-      - '3000:3000'
+      - '3000:3000'  # Exposing the app on port 3000
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+      - NODE_ENV=production  # Setting the environment to production
+      - MAIL_HOST=mailhog  # MailHog service for email sending
+      - MAIL_PORT=1025  # MailHog SMTP port
     depends_on:
       - db
+      - mail  # Added MailHog as a dependency
     networks:
       - app-network
 
@@ -22,7 +26,16 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - '5432:5432'
+      - '5432:5432'  # Exposing PostgreSQL on port 5432
+    networks:
+      - app-network
+
+  mail:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - '1025:1025'  # SMTP port for sending emails
+      - '8025:8025'  # Web UI port for MailHog
     networks:
       - app-network
 
