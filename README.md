@@ -41,10 +41,17 @@
 # Feature
 
 1. Automatically save the Price of **Ethereum and Polygon every 5 minutes**
+
 ![Alt text](outputs/1.png?raw=true "Automatically save the Price of ethereum , polygon")
+
 2. Automatically send an email to “hyperhire_assignment@hyperhire.in” if the price of a chain increases by more than 3% compared to its price one hour ago
+
 3. API - returning the prices of each hour (within 24hours)
+
+![Alt text](outputs/2.png?raw=true "returning the prices of each hour within 24hours")
 4. API  - setting alert for specific price.(parameters are chain, dollar, email)
+
+![Alt text](outputs/3.png?raw=true "setting alert for specific price.(parameters are chain, dollar, email)")
 
 EXAMPLE
 1. User can set alert 1000 dollar for ethereum
