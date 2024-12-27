@@ -4,7 +4,7 @@ import { PricesService } from '../prices.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Price } from '../entities/price.entity';
-import { PriceRepository } from '../price.repository';
+import { PriceRepository } from '../repository/price.repository';
 
 @Injectable()
 export class PriceScheduler {

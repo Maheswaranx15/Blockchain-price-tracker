@@ -6,8 +6,8 @@ import { PricesModule } from './prices/prices.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Price } from './prices/entities/price.entity';
 import { PricesController } from './prices/prices.controller';
-import { PricesService } from './prices/prices.service';
 import { PriceAlertService } from './prices/services/price-alert.service';
+import { Alert } from './prices/entities/alert.entity';
 
 @Module({
   imports: [
@@ -18,13 +18,14 @@ import { PriceAlertService } from './prices/services/price-alert.service';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [Price],
+      entities: [Price,Alert],
       synchronize: true,   
     }),
     PricesModule, 
     ScheduleModule.forRoot(),
   ],
   controllers: [AppController,PricesController], 
-  providers: [AppService,PricesService, PriceAlertService],
+  providers: [AppService, PriceAlertService],
 })
 export class AppModule {}
+
